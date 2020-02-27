@@ -24,7 +24,7 @@ En términos técnicos, deberás generar 3 endpoints, los cuales deberan retorna
 		"join_date": "Y-m-d",
 	}]
 	
-	GET /payments?client=? =>                          Listar pagos de un cliente
+	GET /payments?client={id} =>                          Listar pagos de un cliente
 	[
 		{
 			"uuid": "4dc2aa90-744e-46da-aeea-952e211b719d",

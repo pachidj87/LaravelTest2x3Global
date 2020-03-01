@@ -10,7 +10,6 @@ El proposito de este desafío es demostrar y seguir los siguientes puntos:
 - Escribir el código en **inglés**
 - Seguir simples instrucciones
 
-
 ## Gestión básica de pagos (de clientes)
 
 #### Instrucciones del proyecto
@@ -54,15 +53,26 @@ En términos técnicos, deberás generar 3 endpoints, los cuales deberan retorna
 	}
 	
 
-Como podrás imaginar, los modelos se componen de **Client** y **Payment**, la estructura de los modelos queda en tus manos, pero deben contener los valores señalados en los JSON de ejemplo y las relaciones correspondientes, deberás utilizar migraciones para generar la estructura de la base de datos.
+Como podrás imaginar, los modelos se componen de **Client** y **Payment**, la estructura de los modelos queda en tus manos, pero deben contener los valores señalados en los JSON de ejemplo y las relaciones correspondientes, deberás **utilizar migraciones** para generar la estructura de la base de datos.
 
 Para la generación de clientes, no es necesario contar con un endpoint, pero queda en tus manos la carga de esos datos.
+
+### Instrucciones específicas
+- El motor de base de datos deberá ser una BD relacional (Puedes utilizar MySQL, MariaDB, SQLite, etc. Siempre y cuando sea relacional)
+
+- Es **obligatorio** utilizar migraciones de Laravel para generar la estructura de la base de datos
+
+- Las columnas o atributos de los modelos, pueden ser flexibles (a tu gusto), sin embargo, deberán contener **si o si** al menos la estructura de los **JSON** representadas mas arriba.
+
+- Los Uuid a generar los puedes generar directamente desde Laravel, sin instalar un paquete externo (https://laravel.com/docs/master/helpers#method-str-uuid)
+
+- **No** es necesario levantar el proyecto en un servidor web, basta con enviarnos el repositorio para revisarlo.
 
 ### Lógica de Negocio
 
 - Al crear un nuevo pago, deberas lanzar un proceso en background utilizando **Jobs** de Laravel, en el cual consulte la siguiente API https://mindicador.cl/api/dolar y almacene el valor del día en el cual se genero en el pago que se creó, el driver de **queues** queda en tu decisión.
 
-- Si al momento de ejecutarse el Job de consulta a la API del dolar, se detecta que ya hay un pago creado el mismo día, se debera utilizar el valor del registro que ya contiene ese dato, en vez de volver a consultar a la API.
+- Un detalle específico del Job, es que si al momento de ejecutarse el Job, se comprueba que ya se realizo un pago ese mismo día, es decir, ya se utilizo el endpoint y se ejecuto el Job previamente (sin importar si es el mismo cliente), se deberá reutilizar el valor del dolar de tal registro (coincidente con el día), con el fin de evitar una nueva consulta a la API del dolar, ya que este valor ya fue capturado previamente en un pago.
 
 - Al momento de crear un nuevo pago, deberás gatillar medianto el uso de **Events y Listeners** el envío de un correo de notificacion (no tiene que contener absolutamente nada importante, basta con que se envíe), se recomienda el uso de **Mailtrap** para testing, puedes aplicar el envío del Job dentro de un Listener si te acomoda.
 

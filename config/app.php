@@ -1,5 +1,7 @@
 <?php
 
+use InfyOm\Generator\InfyOmGeneratorServiceProvider;
+
 return [
 
     /*
@@ -175,6 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        InfyOmGeneratorServiceProvider::class,
+        Appointer\Swaggervel\SwaggervelServiceProvider::class
     ],
 
     /*

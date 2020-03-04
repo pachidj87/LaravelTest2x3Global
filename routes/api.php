@@ -16,3 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['middleware' => 'auth:api', 'namespace' => '\App\Http\Controllers\API'], function () {
+    /** Clients Resource */
+    Route::resource('clients', 'ClientAPIController');
+
+    /** Payments Resources */
+    Route::resource('payments', 'PaymentsAPIController');
+});

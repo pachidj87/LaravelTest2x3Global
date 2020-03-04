@@ -11,6 +11,12 @@
 |
 */
 
+use Illuminate\Http\JsonResponse;
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/login', function () {
+    return JsonResponse::create(['Not yet implemented. Use generated api_token to access the test :)']);
+})->name('login');
